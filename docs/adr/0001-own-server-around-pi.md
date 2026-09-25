@@ -1,0 +1,3 @@
+# Own server around Pi sessions, replaceable by Pi's server later
+
+Clients talk to our own server, which runs Pi agent sessions in-process (via the Pi SDK) and exposes Tasks, Steps and hard stops in our own terms. We did not build on Pi's multi-session server (`packages/server`/`client`/`protocol`) because, as of Pi v0.87 (2026-09), it is experimental, has no protocol compatibility guarantee and no peer authentication. The boundary between our server and Pi is kept deliberately thin so the hand-rolled session hosting can be swapped for Pi's off-the-shelf server once it stabilizes; do not let Pi-specific types leak into the Client-facing API.

@@ -1,0 +1,3 @@
+# convo stops at a local commit; integration is the human's
+
+A Committed Task ends in one local commit on its own branch, and convo goes no further: it never pushes, opens a pull request, rebases, merges into main or deletes a branch. Branches last until the human deletes them. We considered having convo push and open a PR, or merge into main itself, but either would put convo in charge of shared history and of resolving conflicts between parallel Tasks, which is exactly where an unattended agent does the most damage. The cost is that stale or conflicting branches, and getting work into main, are left to the human (or to a follow-up Task).

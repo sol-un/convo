@@ -1,0 +1,3 @@
+# Follow-up work is always a new Task, never a reopened one
+
+A Task runs Explore & Plan → Code once and ends (usually in a single commit); it is never reopened. Anything that comes after (the human's own notes, code review comments, QA reports) becomes a new Task whose Prompt carries a Task Reference to the earlier Task, which hands over its Artifacts and starts the new Worktree from the earlier Task's branch if that branch still exists. We considered repeatable Follow Up and AI Review Steps inside a Task, with extra approval gates, but dropped them: they multiplied hard stops (against the hands-off goal), blurred which agent owned which context, and made a Task's lifecycle open-ended. The cost is more, smaller Tasks and stacked branches.
