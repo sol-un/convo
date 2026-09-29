@@ -1,0 +1,30 @@
+{
+  "name": "convo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.6.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @convo/server --filter @convo/web-client dev",
+    "build": "pnpm --filter @convo/web-client build && pnpm --filter @convo/server build",
+    "start": "node packages/server/dist/main.js",
+    "typecheck": "pnpm -r typecheck && tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "prepare": "effect-language-service patch"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.14",
+    "@effect/language-service": "0.87.3",
+    "@effect/vitest": "4.0.0-rc.118",
+    "@playwright/test": "1.63.0",
+    "@types/node": "^24.19.0",
+    "effect": "4.0.0-rc.118",
+    "typescript": "6.0.3",
+    "vitest": "5.0.2"
+  }
+}

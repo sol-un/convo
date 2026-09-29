@@ -1,0 +1,11 @@
+packages:
+  - packages/*
+allowBuilds:
+  esbuild: true
+minimumReleaseAgeExclude:
+  - '@effect/language-service@0.87.3'
+# Effect v4 rc has breaking changes between releases; the @effect packages
+# depend on each other with caret ranges, so pin the whole family exactly.
+overrides:
+  effect: 4.0.0-rc.118
+  "@effect/platform-node-shared": 4.0.0-rc.118

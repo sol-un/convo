@@ -1,0 +1,18 @@
+{
+  "name": "@convo/server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/main.ts",
+    "build": "node build.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@convo/api": "workspace:*",
+    "@effect/platform-node": "4.0.0-rc.118",
+    "effect": "4.0.0-rc.118"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}
