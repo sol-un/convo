@@ -1,10 +1,10 @@
-import { ConvoApi } from "@convo/api"
+import { ConvoApi, Health } from "@convo/api"
 import { Effect, Layer } from "effect"
 import { HttpRouter, HttpServerResponse, HttpStaticServer } from "effect/http"
 import { HttpApiBuilder } from "effect/http-api"
 
 const HealthLive = HttpApiBuilder.group(ConvoApi, "health", (handlers) =>
-  handlers.handle("check", () => Effect.succeed({ status: "ok" as const })),
+  handlers.handle("check", () => Effect.succeed(Health.make({ status: "ok" }))),
 )
 
 const ApiLive = HttpApiBuilder.layer(ConvoApi).pipe(Layer.provide(HealthLive))

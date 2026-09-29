@@ -8,4 +8,6 @@ minimumReleaseAgeExclude:
 # depend on each other with caret ranges, so pin the whole family exactly.
 overrides:
   effect: 4.0.0-rc.118
+  "@effect/platform-node": 4.0.0-rc.118
   "@effect/platform-node-shared": 4.0.0-rc.118
+  "@effect/vitest": 4.0.0-rc.118
