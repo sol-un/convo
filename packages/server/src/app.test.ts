@@ -1,17 +1,32 @@
+import { tmpdir } from "node:os"
 import { fileURLToPath } from "node:url"
 import { ConvoApi } from "@convo/api"
-import { NodeHttpServer } from "@effect/platform-node"
+import { NodeHttpServer, NodeServices } from "@effect/platform-node"
 import { assert, layer } from "@effect/vitest"
 import { Effect, Layer } from "effect"
 import { HttpClient, HttpClientRequest, HttpRouter } from "effect/http"
 import { HttpApiClient } from "effect/http-api"
 import { AppLayer } from "./app.ts"
+import { Database } from "./database.ts"
+import { FolderBrowser } from "./folders.ts"
+import { Projects } from "./projects.ts"
 
 const staticDir = fileURLToPath(new URL("./fixtures/public", import.meta.url))
 
+const TestServices = Layer.mergeAll(
+  Projects.layer,
+  FolderBrowser.layer({ home: tmpdir() }),
+).pipe(
+  Layer.provide(Database.layer({ filename: ":memory:" })),
+  Layer.provide(NodeServices.layer),
+)
+
 const TestServer = HttpRouter.serve(AppLayer({ staticDir }), {
   disableLogger: true,
-}).pipe(Layer.provideMerge(NodeHttpServer.layerTest))
+}).pipe(
+  Layer.provide(TestServices),
+  Layer.provideMerge(NodeHttpServer.layerTest),
+)
 
 const getHtml = (path: string) =>
   HttpClient.execute(

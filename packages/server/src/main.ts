@@ -4,6 +4,7 @@ import { NodeHttpServer, NodeRuntime } from "@effect/platform-node"
 import { Config, Effect, Layer } from "effect"
 import { HttpRouter } from "effect/http"
 import { AppLayer } from "./app.ts"
+import { ServicesLayer } from "./services.ts"
 
 // The build puts the web Client next to the bundled server, in `public/`.
 const defaultStaticDir = fileURLToPath(new URL("./public", import.meta.url))
@@ -19,6 +20,7 @@ const Main = Layer.unwrap(
   Effect.gen(function* () {
     const { port, staticDir } = yield* ServerConfig
     return HttpRouter.serve(AppLayer({ staticDir })).pipe(
+      Layer.provide(ServicesLayer),
       Layer.provide(
         NodeHttpServer.layer(createServer, { host: "127.0.0.1", port }),
       ),
